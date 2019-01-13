@@ -1,0 +1,13 @@
+#achtergrond
+{
+    -fx-background-color: aqua;
+}
+#playername
+{
+    -fx-font-size: 20;
+
+}
+#stats
+{
+    -fx-font-size: 20;
+}
