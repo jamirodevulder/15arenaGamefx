@@ -1,4 +1,4 @@
-package sample;
+package sample.GameStates;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import sample.Player.Player;
 
 import java.util.Random;
 
@@ -26,7 +27,7 @@ public class CreatePlayer {
         rootNode.setAlignment( Pos.CENTER );
 
         Scene myScene = new Scene(rootNode, 700, 700 );
-        myScene.getStylesheets().add("sample/style.css");
+        myScene.getStylesheets().add("sample/css/style.css");
         rootNode.setId("achtergrond");
 
         TextField textfield = new TextField();
@@ -55,9 +56,8 @@ public class CreatePlayer {
                      if(count < player.length)
                      {
                          String name = textfield.getText().toString();
-                         player[count] = new Player(name, ran.nextInt(5) + 10, ran.nextInt(5) + 10);
+                         player[count] = new Player(name, ran.nextInt(10) + 5 , ran.nextInt(10) + 5);
                          textfield.setText("");
-                         System.out.println(player[count].getAttack());
                          count++;
                          question.setText("speler " + (count + 1) + " wat is je naam?");
                          if(count == player.length)

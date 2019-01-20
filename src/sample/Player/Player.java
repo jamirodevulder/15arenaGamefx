@@ -1,5 +1,7 @@
-package sample;
+package sample.Player;
 
+
+import sample.Gear.Item;
 
 public class Player {
     private String Name;
@@ -7,14 +9,28 @@ public class Player {
     private int Healt = 100;
     private int Attack;
     private int MaxWeight = 100;
-    private Item Weapon = new Item();
-    private Item Shield = new Item();
+    private Item Armor = null;
+    private Item Weapon = null;
+    private Item Shield = null;
 
     public Player(String name, int attack, int defence)
     {
       Name = name;
       Attack = attack;
       Defence = defence;
+    }
+
+
+    public Item getArmor() { return Armor; }
+
+    public void setArmor(Item armor) { Armor = armor; }
+
+    public void setMaxWeight(int maxWeight) {
+        MaxWeight = maxWeight;
+    }
+
+    public Item getShield() {
+        return Shield;
     }
 
     public int getDefence() {

@@ -1,4 +1,6 @@
-package sample;
+package sample.Gear;
+
+import sample.Gear.Item;
 
 public class Weapon extends Item {
     private int Strength;

@@ -1,4 +1,4 @@
-package sample;
+package sample.Gear;
 
 public class Item {
     private int Weight;
@@ -29,5 +29,6 @@ public class Item {
     public String getName() {
         return Name;
     }
+
 
 }

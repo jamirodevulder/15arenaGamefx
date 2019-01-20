@@ -1,11 +1,8 @@
 package sample;
 import javafx.application.*;
 import javafx.scene.*;
-import javafx.scene.control.*;
 import javafx.stage.*;
-import javafx.scene.layout.*;
-import javafx.geometry.*;
-import javafx.event.*;
+import sample.GameStates.CreatePlayer;
 
 
 public class Main extends Application
