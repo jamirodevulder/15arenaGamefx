@@ -12,6 +12,9 @@ import sample.Gear.Shield;
 import sample.Gear.Weapon;
 import sample.Player.Player;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class GetGearState {
 private int count = 0;
 private Weapon[] weapon = new Weapon[4];
@@ -65,6 +68,7 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
                     weapon[0].setName("speer");
                     weapon[0].setDurabillity(90);
                     weapon[0].setWeight(60);
+                    weapon[0].setAccuracy(50);
                     weaponWeight(weapon[0], player[count]);
                     comboBox1.setVisible(false);
 
@@ -73,6 +77,7 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
                     weapon[1] = new Weapon(60, 70);
                     weapon[1].setName("zwaard");
                     weapon[1].setDurabillity(80);
+                    weapon[1].setAccuracy(60);
                     weapon[1].setWeight(50);
                     weaponWeight(weapon[1], player[count]);
                     comboBox1.setVisible(true);
@@ -82,6 +87,7 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
                     weapon[2].setName("dagger");
                     weapon[2].setDurabillity(70);
                     weapon[2].setWeight(30);
+                    weapon[2].setAccuracy(80);
                     weaponWeight(weapon[2], player[count]);
 
                     comboBox1.setVisible(true);
@@ -91,6 +97,7 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
                     weapon[3].setName("bijl");
                     weapon[3].setDurabillity(70);
                     weapon[3].setWeight(20);
+                    weapon[3].setAccuracy(90);
                     comboBox1.setVisible(true);
                     weaponWeight(weapon[3], player[count]);
                     break;
@@ -181,15 +188,19 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
 
         nextplayer.setOnAction(e ->{
            count++;
-           if(count >= player.length)
+           if(count >= player.length )
             {
-
+                order(player);
+                AttackState play = new AttackState(player, myStage);
             }
-           thisPlayer.setText("<" + player[count].getName() + " het gewicht wat je nog kan dragen: " + player[count].getMaxWeight() + ">");
-           thisPlayerStats.setText("jouw stats"+ ": kracht: " + player[count].getAttack() + " defence: " + player[count].getDefence());
-           comboBox.setValue("");
-           comboBox1.setValue("");
-           comboBox2.setValue("");
+           else {
+               thisPlayer.setText("<" + player[count].getName() + " het gewicht wat je nog kan dragen: " + player[count].getMaxWeight() + ">");
+               thisPlayerStats.setText("jouw stats" + ": kracht: " + player[count].getAttack() + " defence: " + player[count].getDefence());
+               comboBox.setValue("");
+               comboBox1.setValue("");
+               comboBox2.setValue("");
+               comboBox1.setVisible(true);
+           }
         });
 
 
@@ -226,6 +237,42 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
 
 
     }
+
+
+    public static Player[] order(Player[] players)
+    {
+        Integer[] counts = new Integer[players.length];
+        Player[] set = new Player[players.length];
+        int counter = 0;
+
+        Boolean check;
+        for (int i = 0; i < players.length; i++)
+        {
+            counts[i] = players[i].getMaxWeight();
+        }
+        Arrays.sort(counts, Collections.reverseOrder());
+        for (int i = 0; i < players.length; i++)
+        {
+            check = true;
+            for (int j = counter; j < players.length; j++)
+            {
+                if(counts[i] == players[j].getMaxWeight() && check)
+                {
+                    // player 0 = 10 dus set j
+                    set[j] = players[i];
+                    players[i] = players[j];
+                    players[j] = set[j];
+                    check = false;
+                    counter += 1;
+                }
+            }
+
+        }
+        return players;
+    }
+
+
+
 
     public void armorweightback(Player player)
     {

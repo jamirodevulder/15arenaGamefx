@@ -13,11 +13,10 @@ public class Player {
     private Item Weapon = null;
     private Item Shield = null;
 
-    public Player(String name, int attack, int defence)
+    public Player(String name, int attack)
     {
       Name = name;
       Attack = attack;
-      Defence = defence;
     }
 
 

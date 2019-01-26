@@ -56,7 +56,7 @@ public class CreatePlayer {
                      if(count < player.length)
                      {
                          String name = textfield.getText().toString();
-                         player[count] = new Player(name, ran.nextInt(10) + 5 , ran.nextInt(10) + 5);
+                         player[count] = new Player(name, ran.nextInt(10) + 10);
                          textfield.setText("");
                          count++;
                          question.setText("speler " + (count + 1) + " wat is je naam?");

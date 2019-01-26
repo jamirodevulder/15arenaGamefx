@@ -12,5 +12,11 @@ public class Weapon extends Item {
 
     }
 
+    public void setAccuracy(int accuracy) {
+        Accuracy = accuracy;
+    }
 
+    public int getAccuracy() {
+        return Accuracy;
+    }
 }
