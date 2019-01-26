@@ -9,4 +9,7 @@ public class Shield extends Item {
 
     public void setDefence(int defence) { Defence = defence; }
 
+    public int getDefence() {
+        return Defence;
+    }
 }

@@ -301,7 +301,7 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
         }
     }
 
-    public void armorWeight(Item item, Player player)
+    public void armorWeight(Armor item, Player player)
     {
         if(player.getArmor() != null)
         {
@@ -311,7 +311,7 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
         player.setMaxWeight(player.getMaxWeight() - item.getWeight());
     }
 
-    public void shieldWeight(Item item, Player player)
+    public void shieldWeight(Shield item, Player player)
     {
         if(player.getShield() != null)
         {
@@ -321,7 +321,7 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
         player.setMaxWeight(player.getMaxWeight() - item.getWeight());
     }
 
-    public void weaponWeight(Item item, Player player)
+    public void weaponWeight(Weapon item, Player player)
     {
         if(player.getWeapon() != null)
         {

@@ -2,6 +2,9 @@ package sample.Player;
 
 
 import sample.Gear.Item;
+import sample.Gear.Shield;
+import sample.Gear.Weapon;
+import sample.Gear.Armor;
 
 public class Player {
     private String Name;
@@ -9,9 +12,19 @@ public class Player {
     private int Healt = 100;
     private int Attack;
     private int MaxWeight = 100;
-    private Item Armor = null;
-    private Item Weapon = null;
-    private Item Shield = null;
+    private Armor Gear = null;
+    private Weapon Weapon = null;
+    private Shield Shield = null;
+    private boolean Dead = false;
+
+    public boolean getDead()
+    {
+        return Dead;
+    }
+
+    public void setDead(boolean dead) {
+        Dead = dead;
+    }
 
     public Player(String name, int attack)
     {
@@ -19,16 +32,23 @@ public class Player {
       Attack = attack;
     }
 
+    public int getHealt() {
+        return Healt;
+    }
 
-    public Item getArmor() { return Armor; }
+    public void setHealt(int healt) {
+        Healt = healt;
+    }
 
-    public void setArmor(Item armor) { Armor = armor; }
+    public Armor getArmor() { return Gear; }
+
+    public void setArmor(Armor armor) { Gear = armor; }
 
     public void setMaxWeight(int maxWeight) {
         MaxWeight = maxWeight;
     }
 
-    public Item getShield() {
+    public Shield getShield() {
         return Shield;
     }
 
@@ -40,7 +60,7 @@ public class Player {
         return Name;
     }
 
-    public void setWeapon(Item weapon) {
+    public void setWeapon(Weapon weapon) {
         Weapon = weapon;
     }
 
@@ -48,7 +68,7 @@ public class Player {
         return MaxWeight;
     }
 
-    public Item getWeapon() {
+    public Weapon getWeapon() {
         return Weapon;
     }
 
@@ -56,7 +76,7 @@ public class Player {
         return Attack;
     }
 
-    public void setShield(Item shield) {
+    public void setShield(Shield shield) {
         Shield = shield;
     }
 

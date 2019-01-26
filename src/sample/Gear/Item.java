@@ -18,6 +18,7 @@ public class Item {
     }
 
 
+
     public int getWeight() {
         return Weight;
     }
@@ -29,6 +30,7 @@ public class Item {
     public String getName() {
         return Name;
     }
+
 
 
 }
