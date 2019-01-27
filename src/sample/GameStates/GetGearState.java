@@ -95,7 +95,7 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
                 case "bijl" :
                     weapon[3] = new Weapon(40, 90);
                     weapon[3].setName("bijl");
-                    weapon[3].setDurabillity(70);
+                    weapon[3].setDurabillity(60);
                     weapon[3].setWeight(20);
                     weapon[3].setAccuracy(90);
                     comboBox1.setVisible(true);
@@ -120,7 +120,7 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
                 case "kleinschild":
                     shield[0] = new Shield();
                     shield[0].setDefence(5);
-                    shield[0].setDurabillity(100);
+                    shield[0].setDurabillity(40);
                     shield[0].setWeight(10);
                     shieldWeight(shield[0], player[count]);
 
@@ -128,14 +128,14 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
                 case "middelschild":
                     shield[1] = new Shield();
                     shield[1].setDefence(10);
-                    shield[1].setDurabillity(100);
+                    shield[1].setDurabillity(40);
                     shield[1].setWeight(15);
                     shieldWeight(shield[1], player[count]);
                     break;
                 case "grootschild":
                     shield[2] = new Shield();
                     shield[2].setDefence(15);
-                    shield[2].setDurabillity(100);
+                    shield[2].setDurabillity(40);
                     shield[2].setWeight(20);
                     shieldWeight(shield[2], player[count]);
                     break;
@@ -155,7 +155,7 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
             {
                 case "leerenpanzer":
                     armor[0] = new Armor();
-                    armor[0].setDurabillity(100);
+                    armor[0].setDurabillity(70);
                     armor[0].setName("leerenpanzer");
                     armor[0].setDefence(15);
                     armor[0].setWeight(20);
@@ -163,7 +163,7 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
                     break;
                 case "ijzerpanzer":
                     armor[1] = new Armor();
-                    armor[1].setDurabillity(100);
+                    armor[1].setDurabillity(60);
                     armor[1].setName("ijzerpanzer");
                     armor[1].setDefence(30);
                     armor[1].setWeight(40);
@@ -171,7 +171,7 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
                     break;
                 case "goudenpanzer":
                     armor[2] = new Armor();
-                    armor[2].setDurabillity(100);
+                    armor[2].setDurabillity(50);
                     armor[2].setName("ijzerpanzer");
                     armor[2].setDefence(45);
                     armor[2].setWeight(60);

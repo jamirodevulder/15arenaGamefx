@@ -16,6 +16,26 @@ public class Player {
     private Weapon Weapon = null;
     private Shield Shield = null;
     private boolean Dead = false;
+    private boolean Rest = false;
+    private boolean Waitfornextturn = false;
+
+
+    public void setWaitfornextturn(boolean waitfornextturn) {
+        Waitfornextturn = waitfornextturn;
+    }
+    public boolean getWaitfornextturn()
+    {
+        return Waitfornextturn;
+    }
+
+    public boolean getRest()
+    {
+        return Rest;
+    }
+
+    public void setRest(boolean rest) {
+        Rest = rest;
+    }
 
     public boolean getDead()
     {

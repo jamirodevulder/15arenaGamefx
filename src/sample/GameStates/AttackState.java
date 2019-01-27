@@ -15,6 +15,9 @@ import sample.Player.Player;
 
 public class AttackState {
 public int count = 0;
+private int check = 0;
+private String theattack;
+
 
     public AttackState(Player[] player, Stage myStage)
     {
@@ -74,7 +77,11 @@ public int count = 0;
         root.setPadding( new Insets( 0 ) );
         root.setAlignment( Pos.TOP_CENTER);
         Label thisPlayer = new Label("Player: "+ player[count].getName() + " Its your turn!");
+        Label thisPlayerHealt = new Label("jouw aantal levens zijn nog: " + player[count].getHealt());
+        thisPlayer.setId("thisplayer");
+        root.setHalignment(thisPlayerHealt, HPos.CENTER);
         root.add(thisPlayer, 0,0);
+        root.add(thisPlayerHealt, 0,1);
         thisPlayer.setId("thisplayer");
         System.out.println(player[count].getWeapon().getStrength());
 
@@ -85,27 +92,78 @@ public int count = 0;
         root.setHalignment(rest, HPos.CENTER);
         root.setHalignment(normalAttack, HPos.CENTER);
         root.setHalignment(heavyAttack, HPos.CENTER);
-        root.add(normalAttack, 0 ,1);
-        root.add(rest, 0 ,2);
-        root.add(heavyAttack, 0 ,3);
+        root.add(normalAttack, 0 ,2);
+        root.add(rest, 0 ,3);
+        root.add(heavyAttack, 0 ,4);
+        Label weapon = new Label();
+        Label shield = new Label();
+        Label armor = new Label();
 
+
+
+
+
+        if(player[count].getWeapon() != null)
+        {
+            weapon.setText("Wapen: heel");
+        }
+        else
+        {
+            weapon.setText("Wapen: gebroken");
+        }
+        if(player[count].getArmor() != null)
+        {
+            armor.setText("Panzer: heel");
+        }
+        else
+        {
+            armor.setText("Panzer: gebroken");
+        }
+        if(player[count].getShield() == null)
+        {
+            if(check == 0) {
+                shield.setText("Shield: niet gekozen");
+                check ++;
+            }
+            else
+            {
+                shield.setText("Schild: gebroken");
+            }
+        }
+        else
+        {
+            shield.setText("Schild: heel");
+        }
+        check++;
+
+        root.add(weapon, 0,5);
+        root.add(shield, 0,6);
+        root.add(armor, 0,7);
 
 
         normalAttack.setOnAction(event -> {
             normalAttack(player, root, myStage);
-            setinvis(normalAttack, rest,heavyAttack);
+            theattack = "normal";
+            setinvis(normalAttack, rest,heavyAttack, weapon, shield, armor);
 
 
 
                 });
 
         rest.setOnAction(event -> {
-            setinvis(normalAttack, rest,heavyAttack);
+            setinvis(normalAttack, rest,heavyAttack, weapon, shield, armor);
+            player[count].setRest(true);
+            theattack = "rest";
+            reset(player, myStage , player[count], 0);
+
         });
 
 
         heavyAttack.setOnAction(event -> {
-            setinvis(normalAttack, rest,heavyAttack);
+            theattack = "heavy";
+            player[count].setWaitfornextturn(true);
+            normalAttack(player, root, myStage);
+            setinvis(normalAttack, rest,heavyAttack, weapon, shield, armor);
         });
 
 
@@ -119,11 +177,14 @@ public int count = 0;
 
     }
 
-    public void setinvis(Button button1, Button button2, Button button3)
+    public void setinvis(Button button1, Button button2, Button button3, Label label1, Label label2, Label label3)
     {
         button1.setVisible(false);
         button2.setVisible(false);
         button3.setVisible(false);
+        label1.setVisible(false);
+        label2.setVisible(false);
+        label3.setVisible(false);
     }
 
     public void normalAttack(Player[] player, GridPane root, Stage myStage)
@@ -134,15 +195,16 @@ public int count = 0;
         {
             if(i != count)
             {
+                if(!player[i].getDead()) {
+                    Label[] players = new Label[player.length];
 
-                Label[] players = new Label[player.length];
 
+                    players[i] = new Label(player[i].getName() + " hp: " + player[i].getHealt());
 
-                players[i] = new Label(player[i].getName() + " hp: " + player[i].getHealt());
-
-                root.add(players[i], 0,(i + 1));
-                root.setHalignment(players[i], HPos.CENTER);
-                options.add(player[i].getName());
+                    root.add(players[i], 0, (i + 2));
+                    root.setHalignment(players[i], HPos.CENTER);
+                    options.add(player[i].getName());
+                }
 
             }
         }
@@ -159,11 +221,22 @@ public int count = 0;
             {
                 if(comboBox.getValue().toString().equals(player[i].getName()))
                 {
-                    Attack nAttack = new Attack();
-                    nAttack.normalAttack(player[count], player[i]);
+                    int damage = 0;
+                    if(theattack.equals("normal")) {
+                        Attack nAttack = new Attack();
+                        damage = nAttack.normalAttack(player[count], player[i], theattack);
+                    }
+                    if(theattack.equals("heavy"))
+                    {
+                        Attack nAttack = new Attack();
+                        damage = nAttack.normalAttack(player[count], player[i], theattack);
+                    }
                     System.out.println(player[i].getHealt());
 
-                    reset(player, root, myStage, player[i]);
+
+
+
+                    reset(player,  myStage, player[i], damage);
                 }
             }
 
@@ -175,29 +248,81 @@ public int count = 0;
 
 
 
-    public void reset(Player[] player, GridPane root, Stage myStage, Player enemy)
+    public void reset(Player[] player,  Stage myStage, Player enemy, int damage)
     {
         int deadamount = 0;
-        root.getChildren().removeAll();
-        count++;
-        if(enemy.getHealt() <= 0) {
-            enemy.setDead(true);
-        }
+        GridPane root = new GridPane();
+        root.setPadding( new Insets( 0 ) );
+        root.setAlignment( Pos.TOP_CENTER);
+            count++;
         if(count == player.length)
         {
             count = 0;
         }
+        if(player[count].getWaitfornextturn())
+        {
+         player[count].setWaitfornextturn(false);
+         count ++;
+            if(count == player.length)
+            {
+                count = 0;
+            }
+        }
+
+        if(enemy.getHealt() <= 0) {
+            enemy.setDead(true);
+        }
+
+
         while (player[count].getDead())
         {
             deadamount++;
             count++;
+            if(count == player.length)
+            {
+                count = 0;
+            }
         }
-        if(deadamount == player.length - 1)
+        int dead = deadamount;
+        Label label = new Label();
+        Button button = new Button("Doorgaan");
+        if(!enemy.getDead() && damage != 0) {
+             label = new Label(enemy.getName() + " verloor: " + damage + "hp. en heeft nu nog maar " + enemy.getHealt() +  " hp over");
+        }
+        else if (theattack.equals("rest"))
+        {
+            label = new Label("je besluit om uit te rusten");
+            theattack = "";
+        }
+        else if (theattack.equals("heavy"))
+        {
+            label = new Label(enemy.getName() + " verloor: " + damage + "hp. en heeft nu nog maar " + enemy.getHealt() +  " hp over. nu moet je alleen een beurt wachten");
+            theattack = "";
+        }
+        else if(damage == 0)
+        {
+            label = new Label("helaas je miste je aanval!");
+        }
+        else {
+            label = new Label(enemy.getName() + " verloor: " + damage + " en heeft deze aanval niet overleefd");
+        }
+
+
+        root.add(label, 0,0);
+        root.add(button, 0,1);
+        Scene scene = new Scene(root, 700,700);
+        scene.getStylesheets().add("sample/css/style.css");
+        root.setId("achtergrond");
+        myStage.setScene(scene);
+        button.setOnAction(event -> {
+        if(dead == player.length - 1)
         {
             System.out.println("you won");
         }
         else {
             attack(player, myStage);
         }
+        });
     }
+
 }
