@@ -32,7 +32,7 @@ private Label errordisplay = new Label("je gear is te zwaar kies iets anders!");
         Label thisPlayerStats = new Label( "jouw stats"+ ": kracht: " + player[count].getAttack() + " defence: " + player[count].getDefence());
         Label weaponsdisplay = new Label("speer  kracht: 70. gewicht: 60\n" + "zwaard  kracht: 60. gewicht: 50\n" + "dagger  kracht: 50. gewicht: 30\n" + "bijl  kracht: 40. gewicht: 20\n" );
         Label schildsdisplay = new Label("kleinschild  defence: 5. gewicht: 10\n" + "middelschild  defence: 10. gewicht: 15\n" + "grootschild  defence: 15. gewicht: 20\n");
-        Label armordisplay = new Label("leerenpanzer  defence: 15. gewicht: 20\n" + "ijzerpanzer defence: 30. gewicht: 40\n" + "grootschild  defence: 60. gewicht: 60\n");
+        Label armordisplay = new Label("leerenpanzer  defence: 15. gewicht: 20\n" + "ijzerpanzer defence: 30. gewicht: 40\n" + "goudenpanzer defence: 60. gewicht: 60\n");
         root.setHalignment(thisPlayer, HPos.CENTER);
         root.setHalignment(thisPlayerStats, HPos.CENTER);
         root.setHalignment(weaponsdisplay, HPos.CENTER);

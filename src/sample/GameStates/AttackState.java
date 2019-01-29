@@ -89,12 +89,15 @@ private String theattack;
         Button normalAttack = new Button("normale aanval");
         Button rest = new Button("rust");
         Button heavyAttack = new Button("zwaare aanval");
+        Button simpleAttack = new Button("gerichte aanval");
         root.setHalignment(rest, HPos.CENTER);
         root.setHalignment(normalAttack, HPos.CENTER);
         root.setHalignment(heavyAttack, HPos.CENTER);
+        root.setHalignment(simpleAttack, HPos.CENTER);
         root.add(normalAttack, 0 ,2);
         root.add(rest, 0 ,3);
-        root.add(heavyAttack, 0 ,4);
+        root.add(heavyAttack, 0,4);
+        root.add(simpleAttack, 0,5);
         Label weapon = new Label();
         Label shield = new Label();
         Label armor = new Label();
@@ -136,22 +139,24 @@ private String theattack;
         }
         check++;
 
-        root.add(weapon, 0,5);
-        root.add(shield, 0,6);
-        root.add(armor, 0,7);
-
+        root.add(weapon, 0,6);
+        root.add(shield, 0,7);
+        root.add(armor, 0,8);
+        root.setHalignment(weapon, HPos.CENTER);
+        root.setHalignment(shield, HPos.CENTER);
+        root.setHalignment(armor, HPos.CENTER);
 
         normalAttack.setOnAction(event -> {
             normalAttack(player, root, myStage);
             theattack = "normal";
-            setinvis(normalAttack, rest,heavyAttack, weapon, shield, armor);
+            setinvis(normalAttack, rest,heavyAttack,simpleAttack, weapon, shield, armor);
 
 
 
                 });
 
         rest.setOnAction(event -> {
-            setinvis(normalAttack, rest,heavyAttack, weapon, shield, armor);
+            setinvis(normalAttack, rest,heavyAttack,simpleAttack, weapon, shield, armor);
             player[count].setRest(true);
             theattack = "rest";
             reset(player, myStage , player[count], 0);
@@ -163,9 +168,14 @@ private String theattack;
             theattack = "heavy";
             player[count].setWaitfornextturn(true);
             normalAttack(player, root, myStage);
-            setinvis(normalAttack, rest,heavyAttack, weapon, shield, armor);
+            setinvis(normalAttack, rest,heavyAttack,simpleAttack, weapon, shield, armor);
         });
 
+        simpleAttack.setOnAction(event -> {
+            theattack = "simple";
+            normalAttack(player, root, myStage);
+            setinvis(normalAttack, rest,heavyAttack,simpleAttack, weapon, shield, armor);
+        });
 
 
 
@@ -177,9 +187,10 @@ private String theattack;
 
     }
 
-    public void setinvis(Button button1, Button button2, Button button3, Label label1, Label label2, Label label3)
+    public void setinvis(Button button1, Button button2, Button button3,Button button4, Label label1, Label label2, Label label3)
     {
         button1.setVisible(false);
+        button4.setVisible(false);
         button2.setVisible(false);
         button3.setVisible(false);
         label1.setVisible(false);
@@ -231,7 +242,14 @@ private String theattack;
                         Attack nAttack = new Attack();
                         damage = nAttack.normalAttack(player[count], player[i], theattack);
                     }
-                    System.out.println(player[i].getHealt());
+                    if(theattack.equals("simple")) {
+
+                        Attack nAttack = new Attack();
+                        damage = nAttack.normalAttack(player[count], player[i], theattack);
+                    }
+
+
+
 
 
 
@@ -296,8 +314,26 @@ private String theattack;
         }
         else if (theattack.equals("heavy"))
         {
-            label = new Label(enemy.getName() + " verloor: " + damage + "hp. en heeft nu nog maar " + enemy.getHealt() +  " hp over. nu moet je alleen een beurt wachten");
-            theattack = "";
+            if(damage == 0)
+            {
+                label = new Label("je miste je aanval en  nu moet je  ook nog is een beurt wachten");
+                theattack = "";
+            }else if(damage >= 1 && !enemy.getDead()) {
+                label = new Label(enemy.getName() + " verloor: " + damage + "hp. en heeft nu nog maar " + enemy.getHealt() + " hp over. nu moet je alleen een beurt overslaan");
+                theattack = "";
+            }
+            else
+            {
+                if(dead == player.length - 1)
+                {
+                    label = new Label(enemy.getName() + " verloor: " + damage + " en heeft deze aanval niet overleefd. en je hebt nu gewonnen");
+                }
+                else
+                {
+                    label = new Label(enemy.getName() + " verloor: " + damage + " en heeft deze aanval niet overleefd. en je moet nu een beurt wachten");
+                }
+                theattack = "";
+            }
         }
         else if(damage == 0)
         {
@@ -317,7 +353,8 @@ private String theattack;
         button.setOnAction(event -> {
         if(dead == player.length - 1)
         {
-            System.out.println("you won");
+            new WinState(player, myStage);
+
         }
         else {
             attack(player, myStage);

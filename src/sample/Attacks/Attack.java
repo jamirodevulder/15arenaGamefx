@@ -14,6 +14,10 @@ public class Attack {
         int defence = 0;
         Random rand = new Random();
         int change = rand.nextInt(100);
+        if(attackname.equals("simple"))
+        {
+            change = 0;
+        }
         if (change <= player.getWeapon().getAccuracy()) {
             if (enemy.getShield() != null && enemy.getArmor() != null) {
                 defence = enemy.getArmor().getDefence() + enemy.getShield().getDefence();
